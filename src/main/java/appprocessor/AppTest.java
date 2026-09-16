@@ -7,8 +7,10 @@ import java.util.Arrays;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -22,7 +24,7 @@ import configsetup.PlaywrightConfig;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AppTest
+public class AppTest extends BaseTest
 {
     public static PlaywrightConfig playwrightConfig = initializeConfig();
 
@@ -42,6 +44,7 @@ public class AppTest
     @Setter
     public static Page page;
 
+    @BeforeSuite
     public static void startBrowserPage()
     {
         if (playwrightConfig.getBrowserScope() != null && playwrightConfig.getBrowserScope().equals("suite"))
@@ -51,6 +54,7 @@ public class AppTest
         }
     }
 
+    @AfterSuite
     public static void stopBrowserPage()
     {
         if (playwrightConfig.getBrowserScope() != null && playwrightConfig.getBrowserScope().equals("suite"))
@@ -151,7 +155,7 @@ public class AppTest
     {
         try
         {
-            browser = new AppTest().getBrowser();
+            browser = new AppTest().getBrowserReference();
             if (browser == null)
             {
                 throw new NullPointerException("Browser instance is null. Ensure browser is initialized before creating new page");
@@ -175,7 +179,7 @@ public class AppTest
         }
     }
 
-    private Browser getBrowser()
+    private Browser getBrowserReference()
     {
         switch (playwrightConfig.getBrowserName())
         {

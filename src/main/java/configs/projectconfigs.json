@@ -1,6 +1,6 @@
 {
-  "applicationUrl": "https://opensource-demo.orangehrmlive.com",
-  "browserScope": "method",
+  "applicationUrl": "https://eventhub.rahulshettyacademy.com/login",
+  "browserScope": "suite",
   "browserName": "chrome",
   "environment": "QA",
   "browserVersion": "",

@@ -1,8 +1,11 @@
 package logintest;
 import com.microsoft.playwright.*;
+
+import appprocessor.AppTest;
+
 import org.testng.annotations.Test;
 
-public class BrowserTest
+public class BrowserTest extends AppTest
 {
     @Test
     public void DemoTest()
@@ -21,5 +24,11 @@ public class BrowserTest
         {
             e.printStackTrace();
         }
+    }
+    
+    @Test
+    public void Login()
+    {
+    	//
     }
 }

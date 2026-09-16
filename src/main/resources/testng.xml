@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="TestNGFrameworkSuite" allow-return-values="true">
+<suite name="TestNGFrameworkSuite" parallel="methods" thread-count="4" allow-return-values="true">
     <parameter name="constructor" value="Nitesh" />
     <test name="Test" parallel="methods">
         <classes>
-            <class name="logintest.BrowserTest"/>
+            <class name="logintest.LoginTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- InputFormSuite -->
