@@ -1,9 +1,7 @@
 package logintest;
 
 import org.testng.annotations.Test;
-
 import com.microsoft.playwright.Page;
-
 import appprocessor.AppTest;
 import pages.LoginPage;
 

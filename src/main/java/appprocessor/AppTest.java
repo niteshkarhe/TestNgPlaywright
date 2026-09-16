@@ -44,21 +44,23 @@ public class AppTest extends BaseTest
     @Setter
     public static Page page;
 
-    @BeforeSuite
+    @BeforeSuite(alwaysRun = true)
     public static void startBrowserPage()
     {
         if (playwrightConfig.getBrowserScope() != null && playwrightConfig.getBrowserScope().equals("suite"))
         {
+        	System.out.println("#### Before Suite to setup Playwright");
             playwrightContext = Playwright.create();
             initializePageBrowser();
         }
     }
 
-    @AfterSuite
+    @AfterSuite(alwaysRun = true)
     public static void stopBrowserPage()
     {
         if (playwrightConfig.getBrowserScope() != null && playwrightConfig.getBrowserScope().equals("suite"))
         {
+        	System.out.println("#### After Suite to teardown Playwright");
             if (context != null)
             {
                 context.close();
