@@ -145,7 +145,7 @@ public class BaseTest
 	{
 		try
 		{
-			System.out.println("#### After Method to end test with result");
+			System.out.println("#### After Method to end ExtentTest with result");
 			getTestNames().remove(result.getTestName());
 			int testStatus = result.getStatus();
 			String stackTrace = result.getThrowable() == null

@@ -23,6 +23,7 @@ import com.microsoft.playwright.Playwright;
 import configsetup.PlaywrightConfig;
 import lombok.Getter;
 import lombok.Setter;
+import pages.LoginPage;
 
 public class AppTest extends BaseTest
 {
@@ -52,6 +53,8 @@ public class AppTest extends BaseTest
         	System.out.println("#### Before Suite to setup Playwright");
             playwrightContext = Playwright.create();
             initializePageBrowser();
+            LoginPage lgPage = new LoginPage(page);
+            lgPage.LoginEventHubPortal();
         }
     }
 

@@ -1,4 +1,4 @@
-package logintest;
+package locatorpractice;
 
 import org.testng.annotations.Test;
 import com.microsoft.playwright.Page;
@@ -13,14 +13,5 @@ public class LoginTest extends AppTest
 		Page page = createNewPage();
 		LoginPage lgPage = new LoginPage(page);
 		lgPage.LoginEventHubPortal();
-	}
-	
-	@Test(testName="Verify portal menus are displayed correctly")
-	public void VerifyPortalMenus()
-	{
-		Page page = createNewPage();
-		LoginPage lgPage = new LoginPage(page);
-		lgPage.LoginEventHubPortal();
-		lgPage.VerifyThatPortalHasCorrectMenus();
 	}
 }

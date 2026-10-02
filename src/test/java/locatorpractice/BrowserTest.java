@@ -1,4 +1,4 @@
-package logintest;
+package locatorpractice;
 import com.microsoft.playwright.*;
 
 import appprocessor.AppTest;

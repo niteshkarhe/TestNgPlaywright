@@ -1,8 +1,5 @@
 package appprocessor;
 
-import org.testng.ITestResult;
-import org.testng.Reporter;
-
 import com.microsoft.playwright.Locator;
 
 import lombok.Getter;

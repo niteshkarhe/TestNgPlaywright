@@ -139,5 +139,16 @@ public class PlaywrightWaits
 			return false;
 		}
 	}
-
+	
+	public void sleep(long timeInSec)
+	{
+		try
+		{
+			Thread.sleep(timeInSec * 1000);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
