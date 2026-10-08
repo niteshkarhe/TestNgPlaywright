@@ -18,7 +18,7 @@ public class PlaywrightLocators
 	public PlaywrightLocators(String name, Locator locator)
 	{
 		this.name = name;
-		this.selector = locator;
+		this.selector = locator.describe(name);
 	}
 	
 	protected String spacify(String text)

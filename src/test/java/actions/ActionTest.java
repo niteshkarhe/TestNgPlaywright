@@ -31,6 +31,7 @@ public class ActionTest extends AppTest
 		{
 			System.out.println("Checkbox is Checked");
 		}
+		
 		Thread.sleep(3000);
 		
 		// Mouse Click()
