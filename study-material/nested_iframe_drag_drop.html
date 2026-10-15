@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nested Iframe Drag and Drop</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 32px 15px 15px;
+    font-family: Arial, sans-serif;
+    color: #000;
+  }
+  .frame-label {
+    position: absolute;
+    top: 8px;
+    left: 22px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  #parentFrame {
+    display: block;
+    width: 900px;
+    max-width: 100%;
+    height: 363px;
+    border: 5px solid #000;
+    background: #fff;
+  }
+</style>
+</head>
+<body>
+  <div class="frame-label">parentFrame</div>
+
+  <!-- parentFrame is an actual iframe. Its document contains childFrame1 and childFrame2. -->
+  <iframe id="parentFrame" name="parentFrame" title="parentFrame"></iframe>
+
+<script>
+  const parentFrame = document.getElementById('parentFrame');
+
+  parentFrame.srcdoc = `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; margin: 0; }
+  body { font-family: Arial, sans-serif; color: #000; background: #fff; }
+  .parent-content { height: 100%; padding: 47px 50px 20px; }
+  .children {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+  }
+  .child-wrap {
+    position: relative;
+    width: 320px;
+    height: 243px;
+    border: 5px solid #000;
+    flex: 0 1 320px;
+  }
+  .child-label {
+    position: absolute;
+    top: -25px;
+    left: 8px;
+    font-size: 18px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .child-wrap iframe {
+    display: block;
+    border: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 760px) {
+    .parent-content { height: auto; min-height: 100%; padding: 45px 20px 20px; }
+    .children { flex-wrap: wrap; justify-content: center; row-gap: 45px; }
+    .child-wrap { flex-basis: 320px; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <main class="parent-content">
+    <div class="children">
+      <section class="child-wrap">
+        <div class="child-label">childFrame1</div>
+        <iframe id="childFrame1" name="childFrame1" title="childFrame1"></iframe>
+      </section>
+      <section class="child-wrap">
+        <div class="child-label">childFrame2</div>
+        <iframe id="childFrame2" name="childFrame2" title="childFrame2"></iframe>
+      </section>
+    </div>
+  </main>
+
+<script>
+  // childFrame1 contains Drag 1.
+  document.getElementById('childFrame1').srcdoc = \`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><style>
+html,body{width:100%;height:100%;margin:0;font-family:Arial,sans-serif}
+body{display:flex;align-items:center;justify-content:center}
+#drag1{border:5px solid #000;padding:8px 13px;font-size:18px;font-weight:bold;background:#fff;cursor:grab;user-select:none}
+</style></head><body>
+<div id="drag1" draggable="true">Drag 1</div>
+<script>
+  document.getElementById('drag1').addEventListener('dragstart', e => {
+    e.dataTransfer.setData('text/plain', 'Drag 1');
+    e.dataTransfer.effectAllowed = 'copy';
+  });
+<\\/script>
+</body></html>\`;
+
+  // childFrame2 contains Drag 2 and accepts Drag 1 as a drop.
+  document.getElementById('childFrame2').srcdoc = \`<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><style>
+html,body{width:100%;height:100%;margin:0;font-family:Arial,sans-serif}
+body{display:flex;align-items:center;justify-content:center}
+#drag2{border:5px solid #000;padding:8px 13px;font-size:18px;font-weight:bold;background:#fff;cursor:grab;user-select:none}
+#drag2.over{background:#e8e8e8}
+</style></head><body>
+<div id="drag2" draggable="true">Drag 2</div>
+<script>
+const item = document.getElementById('drag2');
+item.addEventListener('dragstart', e => {
+  e.dataTransfer.setData('text/plain', 'Drag 2');
+  e.dataTransfer.effectAllowed = 'copy';
+});
+item.addEventListener('dragover', e => {
+  e.preventDefault();
+  item.classList.add('over');
+  e.dataTransfer.dropEffect = 'copy';
+});
+item.addEventListener('dragleave', () => item.classList.remove('over'));
+item.addEventListener('drop', e => {
+  e.preventDefault();
+  item.classList.remove('over');
+  const text = e.dataTransfer.getData('text/plain');
+  if (text === 'Drag 1') {
+    item.textContent = 'Dropped: Drag 1';
+    item.style.background = '#e8e8e8';
+  }
+});
+<\\/script>
+</body></html>\`;
+<\/script>
+</body>
+</html>`;
+</script>
+</body>
+</html>
